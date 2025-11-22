@@ -3,6 +3,7 @@ package com.tomadin.dev.seguridadPrivada.entity;
 import com.tomadin.dev.seguridadPrivada.enums.estadoRegistroRepriv;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -15,16 +16,16 @@ public class RegistroRepriv {
     @JoinColumn(name = "id_persona", referencedColumnName = "id_persona", nullable = false)
     private Persona persona;
     private String numero_registro;
-    @Temporal(TemporalType.DATE)
-    private Date fecha_registro;
-    @Temporal(TemporalType.DATE)
-    private Date fecha_vencimiento;
+
+    private LocalDate fecha_registro;
+
+    private LocalDate fecha_vencimiento;
     private estadoRegistroRepriv estado;
 
     public RegistroRepriv() {
     }
 
-    public RegistroRepriv( String numero_registro, Date fecha_registro, Date fecha_vencimiento, estadoRegistroRepriv estado) {
+    public RegistroRepriv( String numero_registro, LocalDate fecha_registro, LocalDate fecha_vencimiento, estadoRegistroRepriv estado) {
         this.numero_registro = numero_registro;
         this.fecha_registro = fecha_registro;
         this.fecha_vencimiento = fecha_vencimiento;
@@ -55,19 +56,19 @@ public class RegistroRepriv {
         this.numero_registro = numero_registro;
     }
 
-    public Date getFecha_registro() {
+    public LocalDate getFecha_registro() {
         return fecha_registro;
     }
 
-    public void setFecha_registro(Date fecha_registro) {
+    public void setFecha_registro(LocalDate fecha_registro) {
         this.fecha_registro = fecha_registro;
     }
 
-    public Date getFecha_vencimiento() {
+    public LocalDate getFecha_vencimiento() {
         return fecha_vencimiento;
     }
 
-    public void setFecha_vencimiento(Date fecha_vencimiento) {
+    public void setFecha_vencimiento(LocalDate fecha_vencimiento) {
         this.fecha_vencimiento = fecha_vencimiento;
     }
 

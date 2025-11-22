@@ -18,6 +18,8 @@ public class Barrio {
     @OneToMany(mappedBy = "barrio", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TrabajaEn> asignacionesOperarios  = new ArrayList<>();
 
+    public Barrio() {
+    }
 
     public Barrio(String nombre_barrio, String codigo_postal, EstadoBarrio estado) {
         this.nombre_barrio = nombre_barrio;

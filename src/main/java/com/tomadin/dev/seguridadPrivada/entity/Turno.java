@@ -7,20 +7,25 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
 
+@Entity
+@Table(name = "turnos")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo_turno", discriminatorType = DiscriminatorType.STRING)
 public abstract class Turno {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    protected Long id_persona;
-    @Temporal(TemporalType.TIME)
+    protected Long id_turno;
+
     protected LocalTime hora_comienzo;
-    @Temporal(TemporalType.TIME)
     protected LocalTime hora_finalizacion;
     protected String nombre_turno;
     protected LocalDate fecha;
+    @Enumerated(EnumType.STRING)
     protected EstadoTurno estadoTurno;
+
     @ManyToOne
-    @JoinColumn(name = "id_supervisor_creador", referencedColumnName = "id_persona", nullable = false)
-    private Supervisor supervisorCreador;
+    @JoinColumn(name = "id_supervisor_asignado", referencedColumnName = "id_persona", nullable = false)
+    private Supervisor supervisorAsignado;
     /*
     @ManyToOne
     @JoinColumn(name = "id_barrio", referencedColumnName = "id_barrio")
@@ -35,13 +40,10 @@ public abstract class Turno {
         this.estadoTurno = estadoTurno;
     }
 
-    public Long getId_persona() {
-        return id_persona;
+    public Turno() {
+
     }
 
-    public void setId_persona(Long id_persona) {
-        this.id_persona = id_persona;
-    }
 
     public LocalTime getHora_comienzo() {
         return hora_comienzo;
@@ -83,12 +85,12 @@ public abstract class Turno {
         this.estadoTurno = estadoTurno;
     }
 
-    public Supervisor getSupervisorCreador() {
-        return supervisorCreador;
+    public Supervisor getSupervisorAsignado() {
+        return supervisorAsignado;
     }
 
-    public void setSupervisorCreador(Supervisor supervisorCreador) {
-        this.supervisorCreador = supervisorCreador;
+    public void setSupervisorAsignado(Supervisor supervisorAsignado) {
+        this.supervisorAsignado = supervisorAsignado;
     }
 
 

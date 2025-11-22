@@ -2,11 +2,15 @@ package com.tomadin.dev.seguridadPrivada.entity;
 
 import jakarta.persistence.*;
 
+
 @Entity
 @Table(name = "personas")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo", discriminatorType = DiscriminatorType.STRING)
 public abstract class Persona {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "persona_seq", sequenceName = "persona_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "persona_seq")
     protected Long id_persona;
     @Column(unique = true, nullable = false)
     protected String dni;
@@ -17,10 +21,13 @@ public abstract class Persona {
     protected int edad;
     protected String telefonoPersonal;
     @Column(unique = true, nullable = false)
+
     protected String email;
+
     @OneToOne(cascade = CascadeType.ALL) // para guardar y eliminar Direccion junto a Persona
-    @JoinColumn(name = "id_direccion", referencedColumnName = "idDireccion")
+    @JoinColumn(name = "id_direccion") // refiere PK de Direccion
     protected Direccion direccion;
+
     @OneToOne(mappedBy = "persona", cascade = CascadeType.ALL)
     protected Usuario usuario;
     @OneToOne(mappedBy = "persona", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -28,9 +35,10 @@ public abstract class Persona {
     @OneToOne(mappedBy = "persona", cascade = CascadeType.ALL, orphanRemoval = true)
     protected RegistroRepriv registroRepriv;
 
+    public Persona() {
+    }
 
-
-    public Persona( String dni, String cuil, String nombre, String apellido, int edad, String telefonoPersonal, String email) {
+    public Persona(String dni, String cuil, String nombre, String apellido, int edad, String telefonoPersonal, String email) {
         this.dni = dni;
         this.cuil = cuil;
         this.nombre = nombre;
@@ -40,11 +48,11 @@ public abstract class Persona {
         this.email = email;
     }
 
-    public long getId_persona() {
+    public Long getId_persona() {
         return id_persona;
     }
 
-    public void setId_persona(long id_persona) {
+    public void setId_persona(Long id_persona) {
         this.id_persona = id_persona;
     }
 
@@ -115,9 +123,7 @@ public abstract class Persona {
         }
     }
 
-    public void setId_persona(Long id_persona) {
-        this.id_persona = id_persona;
-    }
+
 
     public Usuario getUsuario() {
         return usuario;

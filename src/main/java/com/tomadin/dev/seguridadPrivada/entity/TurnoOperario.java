@@ -1,31 +1,33 @@
 package com.tomadin.dev.seguridadPrivada.entity;
 
 import com.tomadin.dev.seguridadPrivada.enums.EstadoTurno;
-import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
-@Table(name = "turnos_operario")
-@DiscriminatorValue("OPERARIO")
-public class TurnoOperario extends Turno{
-    @Column(name = "id_operario")
-    private Long id_operario;
+@DiscriminatorValue("TURNOS_OPERARIO")
+public class TurnoOperario extends Turno {
 
-    public TurnoOperario(LocalTime hora_comienzo, LocalTime hora_finalizacion, String nombre_turno, LocalDate fecha, EstadoTurno estadoTurno, Long id_operario) {
+    @ManyToOne
+    @JoinColumn(name = "id_operario")
+    private Operario operario;
+
+    public TurnoOperario() {}
+
+    public TurnoOperario(LocalTime hora_comienzo, LocalTime hora_finalizacion, String nombre_turno,
+                         LocalDate fecha, EstadoTurno estadoTurno, Operario operario) {
+
         super(hora_comienzo, hora_finalizacion, nombre_turno, fecha, estadoTurno);
-        this.id_operario = id_operario;
+        this.operario = operario;
     }
 
-    public Long getId_operario() {
-        return id_operario;
+    public Operario getOperario() {
+        return operario;
     }
 
-    public void setId_operario(Long id_operario) {
-        this.id_operario = id_operario;
+    public void setOperario(Operario operario) {
+        this.operario = operario;
     }
 }

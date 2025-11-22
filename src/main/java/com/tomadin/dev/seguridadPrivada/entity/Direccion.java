@@ -83,7 +83,11 @@ public class Direccion {
 
     public void setPersona(Persona persona) {
         this.persona = persona;
+        if (persona != null && persona.getDireccion() != this) {
+            persona.setDireccion(this);
+        }
     }
+
 
     public int getDepto() {
         return depto;
@@ -92,4 +96,5 @@ public class Direccion {
     public void setDepto(int depto) {
         this.depto = depto;
     }
+
 }

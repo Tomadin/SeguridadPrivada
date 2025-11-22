@@ -7,17 +7,18 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
-@Table(name = "turnos_supervisor")
-@DiscriminatorValue("SUPERVISOR")
-public class TurnoSupervisor extends Turno{
+@DiscriminatorValue("TURNOS_SUPERVISOR")
+public class TurnoSupervisor extends Turno {
 
-    @ManyToOne //supervisor asignado a trabajar este turno
-    @JoinColumn(name = "id_supervisor_asignado", referencedColumnName = "id_persona")
+    @ManyToOne
+    @JoinColumn(name = "id_supervisor")
     private Supervisor supervisorAsignado;
 
-    public TurnoSupervisor(LocalTime hora_comienzo, LocalTime hora_finalizacion, String nombre_turno, LocalDate fecha, EstadoTurno estadoTurno, Supervisor supervisorAsignado) {
+    public TurnoSupervisor() {
+    }
+
+    public TurnoSupervisor(LocalTime hora_comienzo, LocalTime hora_finalizacion, String nombre_turno, LocalDate fecha, EstadoTurno estadoTurno) {
         super(hora_comienzo, hora_finalizacion, nombre_turno, fecha, estadoTurno);
-        this.supervisorAsignado = supervisorAsignado;
     }
 
     public Supervisor getSupervisorAsignado() {

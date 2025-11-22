@@ -3,6 +3,7 @@ package com.tomadin.dev.seguridadPrivada.entity;
 import com.tomadin.dev.seguridadPrivada.enums.estadoCertificadoAntecedentesPenales;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -14,16 +15,16 @@ public class CertificadoAntecedentesPenales {
     @OneToOne
     @JoinColumn(name = "id_persona", referencedColumnName = "id_persona", nullable = false)
     private Persona persona;
-    @Temporal(TemporalType.DATE)
-    private Date fecha_emision;
-    @Temporal(TemporalType.DATE)
-    private Date fecha_vencimiento;
+
+    private LocalDate fecha_emision;
+
+    private LocalDate fecha_vencimiento;
     private estadoCertificadoAntecedentesPenales estado;
 
     public CertificadoAntecedentesPenales() {
     }
 
-    public CertificadoAntecedentesPenales(Date fecha_emision, Date fecha_vencimiento, estadoCertificadoAntecedentesPenales estado) {
+    public CertificadoAntecedentesPenales(LocalDate fecha_emision, LocalDate fecha_vencimiento, estadoCertificadoAntecedentesPenales estado) {
         this.fecha_emision = fecha_emision;
         this.fecha_vencimiento = fecha_vencimiento;
         this.estado = estado;
@@ -45,19 +46,19 @@ public class CertificadoAntecedentesPenales {
         this.persona = persona;
     }
 
-    public Date getFecha_emision() {
+    public LocalDate getFecha_emision() {
         return fecha_emision;
     }
 
-    public void setFecha_emision(Date fecha_emision) {
+    public void setFecha_emision(LocalDate fecha_emision) {
         this.fecha_emision = fecha_emision;
     }
 
-    public Date getFecha_vencimiento() {
+    public LocalDate getFecha_vencimiento() {
         return fecha_vencimiento;
     }
 
-    public void setFecha_vencimiento(Date fecha_vencimiento) {
+    public void setFecha_vencimiento(LocalDate fecha_vencimiento) {
         this.fecha_vencimiento = fecha_vencimiento;
     }
 

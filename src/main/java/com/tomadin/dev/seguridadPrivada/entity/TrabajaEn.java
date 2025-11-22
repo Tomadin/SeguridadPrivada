@@ -12,7 +12,7 @@ public class TrabajaEn {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id_trabajaEn;
     @ManyToOne
-    @JoinColumn(name = "id_operario", referencedColumnName = "id_operario", nullable = false)
+    @JoinColumn(name = "id_operario", nullable = false)
     private Operario operario;
     @ManyToOne
     @JoinColumn(name = "id_barrio", referencedColumnName = "id_barrio", nullable = false)
@@ -21,6 +21,9 @@ public class TrabajaEn {
 
     @Column(name = "fecha_asignacion")
     private LocalDate fecha_asignacion;
+
+    public TrabajaEn() {
+    }
 
     public TrabajaEn(Operario operario, Barrio barrio, LocalDate fecha_asignacion) {
         this.operario = operario;

@@ -8,8 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "operarios")
-@PrimaryKeyJoinColumn(name = "id_operario")
+@DiscriminatorValue("OPERARIO")
 public class Operario extends Persona{
     private EstadoTurno estado;
 
@@ -18,6 +17,9 @@ public class Operario extends Persona{
 
     @OneToMany(mappedBy = "operario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TrabajaEn> asignacionesBarrio = new ArrayList<>();
+
+    public Operario() {
+    }
 
     public Operario(String dni, String cuil, String nombre, String apellido, int edad, String telefonoPersonal, String email, String estado) {
         super(dni, cuil, nombre, apellido, edad, telefonoPersonal, email);

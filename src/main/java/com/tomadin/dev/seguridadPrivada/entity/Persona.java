@@ -1,13 +1,23 @@
 package com.tomadin.dev.seguridadPrivada.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 
 @Entity
-@Table(name = "personas")
+@Table(
+        name = "personas",
+        indexes = {
+                @Index(name = "idx_dni", columnList = "dni"),
+                @Index(name = "idx_email", columnList = "email")
+        }
+)
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo", discriminatorType = DiscriminatorType.STRING)
-public abstract class Persona {
+@Data
+@EqualsAndHashCode(callSuper = true)
+public abstract class Persona extends AuditableEntity{
     @Id
     @SequenceGenerator(name = "persona_seq", sequenceName = "persona_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "persona_seq")

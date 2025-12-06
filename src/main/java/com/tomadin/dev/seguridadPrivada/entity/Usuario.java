@@ -1,6 +1,5 @@
 package com.tomadin.dev.seguridadPrivada.entity;
 
-import com.tomadin.dev.seguridadPrivada.enums.estadoUsuario;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,7 +12,6 @@ public class Usuario {
     private String rol;
     @Column(nullable = false)
     private String password;
-    private estadoUsuario estado_usuario;
     @OneToOne
     @JoinColumn(name = "id_persona", referencedColumnName = "id_persona", nullable = false)
     private Persona persona;
@@ -21,11 +19,10 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(String usuario, String rol, String password, estadoUsuario estado_usuario) {
+    public Usuario(String usuario, String rol, String password) {
         this.usuario = usuario;
         this.rol = rol;
         this.password = password;
-        this.estado_usuario = estado_usuario;
     }
 
     public Long getId_usuario() {
@@ -58,14 +55,6 @@ public class Usuario {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public estadoUsuario getEstado_usuario() {
-        return estado_usuario;
-    }
-
-    public void setEstado_usuario(estadoUsuario estado_usuario) {
-        this.estado_usuario = estado_usuario;
     }
 
     public Persona getPersona() {

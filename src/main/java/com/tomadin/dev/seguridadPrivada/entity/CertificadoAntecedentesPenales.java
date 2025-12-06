@@ -1,10 +1,8 @@
 package com.tomadin.dev.seguridadPrivada.entity;
 
-import com.tomadin.dev.seguridadPrivada.enums.estadoCertificadoAntecedentesPenales;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Table(name = "certificados_antecedentes_penales")
@@ -16,18 +14,18 @@ public class CertificadoAntecedentesPenales {
     @JoinColumn(name = "id_persona", referencedColumnName = "id_persona", nullable = false)
     private Persona persona;
 
-    private LocalDate fecha_emision;
+    private LocalDate fechaEmision;
 
-    private LocalDate fecha_vencimiento;
-    private estadoCertificadoAntecedentesPenales estado;
+    private LocalDate fechaVencimiento;
+
 
     public CertificadoAntecedentesPenales() {
     }
 
-    public CertificadoAntecedentesPenales(LocalDate fecha_emision, LocalDate fecha_vencimiento, estadoCertificadoAntecedentesPenales estado) {
-        this.fecha_emision = fecha_emision;
-        this.fecha_vencimiento = fecha_vencimiento;
-        this.estado = estado;
+    public CertificadoAntecedentesPenales(LocalDate fechaEmision, LocalDate fechaVencimiento) {
+        this.fechaEmision = fechaEmision;
+        this.fechaVencimiento = fechaVencimiento;
+
     }
 
     public long getId_certificadoAntecedentesPenales() {
@@ -46,27 +44,31 @@ public class CertificadoAntecedentesPenales {
         this.persona = persona;
     }
 
-    public LocalDate getFecha_emision() {
-        return fecha_emision;
+    public LocalDate getFechaEmision() {
+        return fechaEmision;
     }
 
-    public void setFecha_emision(LocalDate fecha_emision) {
-        this.fecha_emision = fecha_emision;
+    public void setFecha_emision(LocalDate fechaEmision) {
+        this.fechaEmision = fechaEmision;
     }
 
-    public LocalDate getFecha_vencimiento() {
-        return fecha_vencimiento;
+    public LocalDate getFechaVencimiento() {
+        return fechaVencimiento;
     }
 
-    public void setFecha_vencimiento(LocalDate fecha_vencimiento) {
-        this.fecha_vencimiento = fecha_vencimiento;
+    public void setFechaVencimiento(LocalDate fecha_vencimiento) {
+        this.fechaVencimiento = fechaVencimiento;
     }
 
-    public estadoCertificadoAntecedentesPenales getEstado() {
-        return estado;
-    }
 
-    public void setEstado(estadoCertificadoAntecedentesPenales estado) {
-        this.estado = estado;
+    @PrePersist
+    @PreUpdate
+    private void validar() {
+        if (fechaVencimiento == null || fechaEmision == null) {
+            throw new IllegalStateException("Las fechas no pueden ser nulas");
+        }
+        if (fechaVencimiento.isBefore(fechaEmision) || fechaVencimiento.isEqual(fechaEmision)) {
+            throw new IllegalStateException("Fecha de vencimiento debe ser posterior a emisión");
+        }
     }
 }

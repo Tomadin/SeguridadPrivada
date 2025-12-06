@@ -1,6 +1,5 @@
 package com.tomadin.dev.seguridadPrivada.entity;
 
-import com.tomadin.dev.seguridadPrivada.enums.EstadoBarrio;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;

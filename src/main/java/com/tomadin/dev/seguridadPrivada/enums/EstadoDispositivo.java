@@ -1,6 +1,7 @@
 package com.tomadin.dev.seguridadPrivada.enums;
 
-public enum EstadoBarrio {
-    ACTIVO,
+public enum EstadoDispositivo {
+    ASIGNADO,
+    SIN_ASIGNAR,
     INACTIVO
 }

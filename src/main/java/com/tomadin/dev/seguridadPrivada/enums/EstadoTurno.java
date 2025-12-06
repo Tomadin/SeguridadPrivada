@@ -1,5 +1,9 @@
 package com.tomadin.dev.seguridadPrivada.enums;
 
 public enum EstadoTurno {
-    ACTIVO, VENCIDO
+    PLANIFICADO,
+    EN_CURSO,
+    COMPLETADO,
+    AUSENTE,
+    CANCELADO
 }

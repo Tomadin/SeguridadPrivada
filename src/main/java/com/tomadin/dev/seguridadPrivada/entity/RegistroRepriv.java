@@ -1,10 +1,8 @@
 package com.tomadin.dev.seguridadPrivada.entity;
 
-import com.tomadin.dev.seguridadPrivada.enums.estadoRegistroRepriv;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Table(name = "Registros_repriv")
